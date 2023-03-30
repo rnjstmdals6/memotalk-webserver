@@ -101,6 +101,21 @@ public class WorkSpaceController {
         return ResponseEntity.status(HttpStatus.OK).body(memoResponseDTOList);
     }
 
+    @Operation(summary = "메모 키워드 검색 API")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "메모 목록 조회 성공",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = MemoResponseDTO.class)))),
+            @ApiResponse(responseCode = "401", description = "인증 실패"),
+            @ApiResponse(responseCode = "404", description = "워크스페이스를 찾을 수 없음")
+    })
+    @GetMapping("/memo-list/{workspaceId}/{keyword}")
+    public ResponseEntity<List<MemoResponseDTO>> searchMemoWithKeyword(@PathVariable Long workspaceId, @PathVariable String keyword){
+        List<MemoResponseDTO> memoResponseDTOList = memoService.searchMemoWithKeyword(workspaceId, keyword);
+        return ResponseEntity.status(HttpStatus.OK).body(memoResponseDTOList);
+    }
+
     @Operation(summary = "워크스페이스 상단 이동 API")
     @SecurityRequirement(name = "Bearer Authentication")
     @ApiResponses(value = {

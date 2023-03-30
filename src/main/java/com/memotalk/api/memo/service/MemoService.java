@@ -46,4 +46,11 @@ public class MemoService {
                 () -> new NotFoundException(ErrorCode.NOT_FOUND_MEMO)
         ).markImportant();
     }
+
+    @Transactional(readOnly = true)
+    public List<MemoResponseDTO> searchMemoWithKeyword(Long workspaceId, String keyword) {
+        return memoRepository.findAllByWorkspace_IdAndDescriptionContaining(workspaceId, keyword)
+                .stream().map(MemoResponseDTO::new)
+                .collect(Collectors.toList());
+    }
 }

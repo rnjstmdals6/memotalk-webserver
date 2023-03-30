@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface MemoRepository extends JpaRepository<Memo, Long> {
     List<Memo> findAllByWorkspace_Id(Long workspaceId);
+    List<Memo> findAllByWorkspace_IdAndDescriptionContaining(Long workspaceId, String keyword);
 }
