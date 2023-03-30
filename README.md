@@ -1,10 +1,12 @@
 # 🐧 나만의 채팅방으로 관리 하는 일정 [Memo Talk]()
 
 심플하고 강력한 메모를 원하시나요?<br>
-MemoTalk에는 나만의 채팅방에서 메모를 관리할 수 있어요!
+MemoTalk에는 나만의 채팅방에서 메모를 관리할 수 있어요! 😍
 
 메모만 하기에는 아쉬우신가요?<br>
-MemoTalk에는 메모뿐만 아니라 Todo List로 일정 관리를 할 수 있어요!<br>
+MemoTalk에는 메모뿐만 아니라 Todo List로 일정 관리를 할 수 있어요! 😊<br>
+
+![image](https://user-images.githubusercontent.com/59470153/228816783-a2b3159e-c111-401a-afdf-fcc7b8925667.png)
 
 ## 🐶 소개
 Memo Talk은 Kakao Talk에서 나만의 채팅방을 이용하여 메모하는 것에 매력을 느꼈습니다.<br>
