@@ -1,5 +1,6 @@
 package com.memotalk.api.memo.service;
 
+import com.memotalk.api.memo.dto.FileUploadRequestDTO;
 import com.memotalk.api.memo.dto.MemoMarkImportantRequestDTO;
 import com.memotalk.api.memo.dto.MemoResponseDTO;
 import com.memotalk.api.memo.entity.Memo;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 public class MemoService {
     private final MemoRepository memoRepository;
     private final WorkSpaceRepository workSpaceRepository;
+    private final FileService fileService;
     @Transactional(readOnly = true)
     public List<MemoResponseDTO> getMemoList(Long workspaceId) {
         return memoRepository.findAllByWorkspace_Id(workspaceId)
@@ -33,12 +35,25 @@ public class MemoService {
         WorkSpace workSpace = workSpaceRepository.findById(memoRequestDto.getWorkspaceId()).orElseThrow(
                 () -> new NotFoundException(ErrorCode.WORKSPACE_NOT_FOUND)
         );
+        memoRepository.save(new Memo(workSpace, memoRequestDto.getContent(), null));
+    }
 
-        memoRepository.save(new Memo(workSpace, memoRequestDto.getContent()));
+    public void uploadFile(FileUploadRequestDTO fileUploadRequestDTO){
+        WorkSpace workSpace = workSpaceRepository.findById(fileUploadRequestDTO.getWorkspaceId()).orElseThrow(
+                () -> new NotFoundException(ErrorCode.WORKSPACE_NOT_FOUND)
+        );
+
+        String s3FileUrl = fileService.upload(fileUploadRequestDTO.getMultipartFile());
+        memoRepository.save(new Memo(workSpace, null, s3FileUrl));
     }
 
     public void deleteMemo(Long memoId) {
-        memoRepository.deleteById(memoId);
+        Memo memo = memoRepository.findById(memoId)
+                        .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_MEMO));
+        if (memo.getS3FileUrl() != null){
+            fileService.fileDelete(memo.getS3FileUrl());
+        }
+        memoRepository.delete(memo);
     }
 
     public void markMemoImportant(MemoMarkImportantRequestDTO memoMarkImportantRequestDTO) {
