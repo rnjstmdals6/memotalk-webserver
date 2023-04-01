@@ -15,7 +15,6 @@ public class MemoRequestDTO {
 
     @NotNull
     private Long workspaceId;
-
     @NotNull
     private String content;
 }

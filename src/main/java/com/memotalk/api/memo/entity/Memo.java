@@ -39,15 +39,18 @@ public class Memo {
 
     private boolean isImportant;
 
+    private String s3FileUrl;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "workspace_id", nullable = false)
     @JsonIgnore
     private WorkSpace workspace;
 
-    public Memo(WorkSpace workSpace, String description) {
+    public Memo(WorkSpace workSpace, String description, String s3FileUrl) {
         this.workspace = workSpace;
         this.description = description;
         this.isImportant = false;
+        this.s3FileUrl = s3FileUrl;
     }
 
     public void markImportant(){

@@ -14,6 +14,7 @@ public class MemoResponseDTO {
     private Long memoId;
     private String content;
     private Boolean isImportant;
+    private String s3FileUrl;
     private String createdAt;
     private String modifiedAt;
 
@@ -23,5 +24,6 @@ public class MemoResponseDTO {
         this.createdAt = memo.getCreatedAt().toString();
         this.modifiedAt = memo.getModifiedAt().toString();
         this.isImportant = memo.isImportant();
+        this.s3FileUrl = memo.getS3FileUrl();
     }
 }

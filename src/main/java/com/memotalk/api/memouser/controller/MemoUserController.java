@@ -23,7 +23,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/v1/memo-user")
 @RequiredArgsConstructor
-@Tag(name = "MemoUser", description = "메모 사용자 API")
+@Tag(name = "Memo User", description = "메모 사용자 API")
 @Slf4j
 public class MemoUserController {
 

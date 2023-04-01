@@ -9,15 +9,20 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 @Slf4j
 public class RestApiExceptionHandler {
+
+    private static final String FIELD_ERROR_FORMAT = "[%s] : %s, input value : [%s]";
 
     @ExceptionHandler(value = {BadRequestException.class})
     public ResponseEntity<ErrorResponse> handleBadRequestException(BadRequestException ex) {
@@ -54,7 +59,12 @@ public class RestApiExceptionHandler {
         String requestId = UUID.randomUUID().toString();
         log.info("Method Argument Not Valid, requestId={}, message={}", requestId, ex.getMessage(), ex);
 
-        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), requestId);
+        BindingResult bindingResult = ex.getBindingResult();
+        List<String> fieldErrors = bindingResult.getFieldErrors().stream()
+                .map(error -> String.format(FIELD_ERROR_FORMAT, error.getField(), error.getDefaultMessage(), error.getRejectedValue()))
+                .collect(Collectors.toList());
+
+        ErrorResponse errorResponse = new ErrorResponse(String.join(", ", fieldErrors), requestId);
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
