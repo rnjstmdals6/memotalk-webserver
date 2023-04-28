@@ -40,4 +40,4 @@ Memo Talk은 Kakao Talk에서 나만의 채팅방을 이용하여 메모하는 �
 
 ## :crown: 개발 기간
 ![MuaKissGIF](https://user-images.githubusercontent.com/59470153/228805347-868ec781-361d-4206-8e44-bba21b548bc8.gif)
-- 약 5일(해커톤 느낌으로 진행하였습니다)
+- 약 2주 개발 완료 후 유지 보수 및 리팩토링 진행
