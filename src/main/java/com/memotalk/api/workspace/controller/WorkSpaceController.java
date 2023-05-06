@@ -40,7 +40,7 @@ public class WorkSpaceController {
             @ApiResponse(responseCode = "201", description = "워크스페이스 생성 성공"),
             @ApiResponse(responseCode = "401", description = "인증 실패")
     })
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Void> create(@Parameter(hidden = true) @AuthenticationPrincipal String email) {
         workSpaceService.create(email);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -53,7 +53,7 @@ public class WorkSpaceController {
             @ApiResponse(responseCode = "401", description = "인증 실패"),
             @ApiResponse(responseCode = "404", description = "워크스페이스를 찾을 수 없음")
     })
-    @PatchMapping("/modify")
+    @PatchMapping
     public ResponseEntity<Void> modify(@Parameter(hidden = true) @AuthenticationPrincipal String email, @RequestBody @Valid WorkSpaceModifyRequestDTO requestDTO) {
         workSpaceService.modify(email, requestDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -66,7 +66,7 @@ public class WorkSpaceController {
             @ApiResponse(responseCode = "401", description = "인증 실패"),
             @ApiResponse(responseCode = "404", description = "워크스페이스를 찾을 수 없음")
     })
-    @DeleteMapping("/delete/{workspaceId}")
+    @DeleteMapping("/{workspaceId}")
     public ResponseEntity<Void> delete(@Parameter(hidden = true) @AuthenticationPrincipal String email, @PathVariable Long workspaceId) {
         workSpaceService.delete(email, workspaceId);
         return ResponseEntity.status(HttpStatus.OK).build();

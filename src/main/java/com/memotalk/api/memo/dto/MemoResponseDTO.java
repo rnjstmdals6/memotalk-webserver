@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MemoResponseDTO {
-    private Long memoId;
+    private Long id;
     private String content;
     private Boolean isImportant;
     private String s3FileUrl;
@@ -19,7 +19,7 @@ public class MemoResponseDTO {
     private String modifiedAt;
 
     public MemoResponseDTO(Memo memo){
-        this.memoId = memo.getId();
+        this.id = memo.getId();
         this.content = memo.getDescription();
         this.createdAt = memo.getCreatedAt().toString();
         this.modifiedAt = memo.getModifiedAt().toString();
