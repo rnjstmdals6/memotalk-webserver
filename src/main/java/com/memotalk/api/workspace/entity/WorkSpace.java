@@ -2,8 +2,8 @@ package com.memotalk.api.workspace.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.memotalk.api.memo.entity.Memo;
-import com.memotalk.api.todo.entity.Todo;
 import com.memotalk.api.memouser.entity.MemoUser;
+import com.memotalk.api.todo.entity.Todo;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -52,16 +52,16 @@ public class WorkSpace {
     @OneToMany(mappedBy = "workspace", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Todo> todoList;
 
-    public WorkSpace(MemoUser memoUser){
+    public WorkSpace(MemoUser memoUser) {
         this.title = "워크 스페이스";
         this.memoUser = memoUser;
     }
 
-    public void modify(String title){
+    public void modify(String title) {
         this.title = title;
     }
 
-    public void moveTop(Long recentId){
+    public void moveTop(Long recentId) {
         this.id = recentId + 1L;
     }
 }

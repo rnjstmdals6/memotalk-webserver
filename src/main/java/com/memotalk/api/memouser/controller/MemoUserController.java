@@ -76,7 +76,7 @@ public class MemoUserController {
             @ApiResponse(responseCode = "404", description = "사용자를 찾을 수 없음")
     })
     @PatchMapping("/lock")
-    public ResponseEntity<Void> lock(@Parameter(hidden = true) @AuthenticationPrincipal String email){
+    public ResponseEntity<Void> lock(@Parameter(hidden = true) @AuthenticationPrincipal String email) {
         memoUserService.lock(email);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -91,7 +91,7 @@ public class MemoUserController {
             @ApiResponse(responseCode = "404", description = "사용자를 찾을 수 없음")
     })
     @PatchMapping("/unlock")
-    public ResponseEntity<Void> unlock(@Parameter(hidden = true) @AuthenticationPrincipal String email, @RequestBody MemoUserUnlockRequestDTO requestDTO){
+    public ResponseEntity<Void> unlock(@Parameter(hidden = true) @AuthenticationPrincipal String email, @RequestBody MemoUserUnlockRequestDTO requestDTO) {
         memoUserService.unlock(email, requestDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -105,7 +105,7 @@ public class MemoUserController {
             @ApiResponse(responseCode = "404", description = "사용자를 찾을 수 없음")
     })
     @PatchMapping("/password-reset")
-    public ResponseEntity<Void> resetPassword(@Valid @RequestBody MemoUserPasswordResetRequestDTO requestDTO){
+    public ResponseEntity<Void> resetPassword(@Valid @RequestBody MemoUserPasswordResetRequestDTO requestDTO) {
         memoUserService.resetPassword(requestDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

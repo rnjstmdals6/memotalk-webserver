@@ -1,13 +1,13 @@
 package com.memotalk.api.memouser.service;
 
 import com.memotalk.api.memouser.dto.*;
+import com.memotalk.api.memouser.entity.MemoUser;
+import com.memotalk.api.memouser.respository.MemoUserRepository;
 import com.memotalk.config.jwt.TokenProvider;
 import com.memotalk.exception.BadRequestException;
 import com.memotalk.exception.NoAuthException;
 import com.memotalk.exception.NotFoundException;
 import com.memotalk.exception.enumeration.ErrorCode;
-import com.memotalk.api.memouser.entity.MemoUser;
-import com.memotalk.api.memouser.respository.MemoUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,8 +36,8 @@ public class MemoUserService {
         return new MemoUserSigninResponseDTO(accessToken);
     }
 
-    private void validateEmailNotExists(String email){
-        if(memoUserRepository.existsByEmail(email)){
+    private void validateEmailNotExists(String email) {
+        if (memoUserRepository.existsByEmail(email)) {
             throw new BadRequestException(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
     }

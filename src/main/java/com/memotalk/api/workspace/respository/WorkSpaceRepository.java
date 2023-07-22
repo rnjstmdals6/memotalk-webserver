@@ -10,8 +10,11 @@ import java.util.Optional;
 
 public interface WorkSpaceRepository extends JpaRepository<WorkSpace, Long> {
     Optional<WorkSpace> findByIdAndMemoUser_Email(Long id, String email);
+
     Optional<Object> deleteByIdAndMemoUser_Email(Long id, String email);
+
     List<WorkSpace> findAllByMemoUser_Email(String email);
+
     @Query(value = "SELECT MAX(w.id) FROM WorkSpace w WHERE w.memoUser.email = :email")
     Long findMaxIdByMemoUser_Email(@Param("email") String email);
 }

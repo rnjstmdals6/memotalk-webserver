@@ -1,11 +1,11 @@
 package com.memotalk.api.workspace.service;
 
-import com.memotalk.api.workspace.dto.WorkSpaceResponseDTO;
-import com.memotalk.api.workspace.respository.WorkSpaceRepository;
 import com.memotalk.api.memouser.entity.MemoUser;
 import com.memotalk.api.memouser.respository.MemoUserRepository;
 import com.memotalk.api.workspace.dto.WorkSpaceModifyRequestDTO;
+import com.memotalk.api.workspace.dto.WorkSpaceResponseDTO;
 import com.memotalk.api.workspace.entity.WorkSpace;
+import com.memotalk.api.workspace.respository.WorkSpaceRepository;
 import com.memotalk.exception.NotFoundException;
 import com.memotalk.exception.enumeration.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +48,7 @@ public class WorkSpaceService {
                 .collect(Collectors.toList());
     }
 
-    public void moveTopWorkspace(String email, Long workspaceId){
+    public void moveTopWorkspace(String email, Long workspaceId) {
         Long recentId = workSpaceRepository.findMaxIdByMemoUser_Email(email);
         workSpaceRepository.findById(workspaceId).orElseThrow(
                 () -> new NotFoundException(ErrorCode.WORKSPACE_NOT_FOUND)
